@@ -9,19 +9,19 @@
                                                (asdf:system-source-directory :clavier-email-ext-validator))))
 
 (defclass email-ext-validator (clavier:validator)
-  ((reject-disposable :type 'boolean
+  ((reject-disposable :type boolean
                       :initarg :reject-disposable
                       :initform nil
                       :accessor validator-reject-disposable)
-   (host-check :type 'boolean
+   (host-check :type boolean
                :initarg :host-check
                :initform nil
                :accessor validator-host-check)
-   (mx-check :type 'boolean
+   (mx-check :type boolean
              :initarg :mx-check
              :initform nil
              :accessor validator-mx-check)
-   (disposable-domains :type 'list
+   (disposable-domains :type list
                        :initarg :disposable-domains
                        :initform nil
                        :accessor validator-disposable-domains))
