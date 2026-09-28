@@ -1,12 +1,7 @@
 (defpackage clavier-email-ext-validator
   (:use #:cl #:clavier)
-  (:export #:email-ext-validator
-           #:*disposable-domains*))
+  (:export #:email-ext-validator))
 (in-package #:clavier-email-ext-validator)
-
-(defvar *disposable-domains* (uiop:read-file-lines
-                              (merge-pathnames #P"res/disposable-domains.lst"
-                                               (asdf:system-source-directory :clavier-email-ext-validator))))
 
 (defclass email-ext-validator (clavier:validator)
   ((reject-disposable :type boolean
@@ -31,10 +26,9 @@
 	            (format nil "The email is invalid: ~A" object)))
   (:metaclass closer-mop:funcallable-standard-class))
 
-(defun domain-disposable-p (domain &optional disposable-domains)
-  (member domain
-          (or disposable-domains *disposable-domains*)
           :test #'string=))
+(defun domain-disposable-p (domain disposable-domains)
+  (member domain disposable-domains
 
 (defun domain-has-mx-record (domain)
   (getf (org.shirakumo.dns-client:query domain :type :MX) :answers))
