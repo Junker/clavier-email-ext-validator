@@ -26,9 +26,9 @@
 	            (format nil "The email is invalid: ~A" object)))
   (:metaclass closer-mop:funcallable-standard-class))
 
-          :test #'string=))
 (defun domain-disposable-p (domain disposable-domains)
   (member domain disposable-domains
+          :test #'string-equal))
 
 (defun domain-has-mx-record (domain)
   (getf (org.shirakumo.dns-client:query domain :type :MX) :answers))
