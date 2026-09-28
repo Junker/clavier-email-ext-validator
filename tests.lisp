@@ -14,20 +14,20 @@
 (define-test disposable :parent email-ext-validator
   (let ((v (make-instance 'v:email-ext-validator
                           :reject-disposable t
-                          :disposable-domains '("mailinator.com"))))
+                          :disposable-domains '("disposable.example"))))
     (true (clavier:validate v "u@example.com"))
-    (false (clavier:validate v "u@mailinator.com" :error-p nil))
-    (false (clavier:validate v "u@MAILINATOR.com" :error-p nil))))
+    (false (clavier:validate v "u@disposable.example" :error-p nil))
+    (false (clavier:validate v "u@DISPOSABLE.example" :error-p nil))))
 
 (define-test host-check :parent email-ext-validator
   (let ((v (make-instance 'v:email-ext-validator :host-check t)))
-    (true (clavier:validate v "user@google.com"))
+    (true (clavier:validate v "user@example.net"))
     (false (clavier:validate v "user@this-domain-does-not-exist-xyz-12345.com"
                             :error-p nil))))
 
 (define-test mx-check :parent email-ext-validator
   (let ((v (make-instance 'v:email-ext-validator :mx-check t)))
-    (true (clavier:validate v "user@google.com"))
+    (true (clavier:validate v "user@example.net"))
     (false (clavier:validate v "user@this-domain-does-not-exist-xyz-12345.com"
                             :error-p nil))))
 
